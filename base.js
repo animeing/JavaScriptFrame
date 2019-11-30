@@ -29,6 +29,10 @@ class Transform{
     }
 }
 
+const htmlElement=()=>{
+    return document.getElementsByTagName('html')[0];
+}
+
 class MousePosition{
     #element = null;
     /**
@@ -214,11 +218,11 @@ class DisplayPoint extends Point2D{
         super();
     }
     isHorizontalOverFlow(horizontalSize = 0){
-        let htmlWidth = document.getElementsByTagName('html')[0].clientWidth;
+        let htmlWidth = htmlElement().clientWidth;
         return htmlWidth < this.x + horizontalSize;
     }
     isVerticalOverFlow(verticalSize = 0){
-        let htmlHeight = document.getElementsByTagName('html')[0].clientHeight;
+        let htmlHeight = htmlElement().clientHeight;
         return htmlHeight < this.y + verticalSize;
     }
 }
@@ -574,7 +578,7 @@ class ClipBoard {
     constructor(){
         this.clipDataElement = document.createElement('textarea');
         this.clipDataElement.classList.add = 'hideElement';
-        this.body = document.getElementsByTagName('body')[0];
+        this.body = htmlElement();
         this.body.appendChild(this.clipDataElement);
     }
     /**
@@ -1578,7 +1582,7 @@ const ContextMenu = {
         ContextMenu.baseElement = document.createElement('div');
         ContextMenu.baseElement.id='context-menu';
         ContextMenu.baseElement.appendChild(this.contextMenu.object);
-        document.getElementsByTagName('html')[0].append(ContextMenu.baseElement);
+        htmlElement().append(ContextMenu.baseElement);
         ContextMenu.setPosition(e);
         ContextMenu.isVisible=true;
     },
@@ -1586,7 +1590,7 @@ const ContextMenu = {
      * @private
      */
     removeEventSet(){
-        document.getElementsByTagName('html')[0].addEventListener(MouseEventEnum.CLICK,()=>{
+        htmlElement().addEventListener(MouseEventEnum.CLICK,()=>{
             ContextMenu.remove();
         });
         window.addEventListener('scroll', ()=>{
