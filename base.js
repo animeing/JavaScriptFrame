@@ -1919,3 +1919,10 @@ class AudioPlayer{
         this.currentPlayState = AudioPlayStateEnum.STOP;
     }
 }
+
+fixed = document.createElement('div');
+fixed.classList.add('fixed-window');
+
+window.addEventListener('load',()=>{
+    document.body.appendChild(fixed);
+});
