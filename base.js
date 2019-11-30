@@ -377,14 +377,14 @@ class SortLink extends List{
          super();
          if(sortType == SortType.ASC){
             this.array.sort((v1, v2)=>{
-                if (v1 > v2) return 1;
-                if (v1 < v2) return -1;
+                if (v1 < v2) return 1;
+                if (v1 > v2) return -1;
                 return 0;
             });
          } else {
             this.array.sort((v1, v2)=> {
-                if (v1 > v2) return -1;
-                if (v1 < v2) return 1;
+                if (v1 < v2) return -1;
+                if (v1 > v2) return 1;
                 return 0;
             });
         }
@@ -1512,7 +1512,6 @@ class BoxCanvasObject2D extends CanvasObject2DBase{
             -((this.transform.scale.x/2)-this.transform.position.x),
             -((this.transform.scale.y/2)-this.transform.position.y));
 
-    //    this.context.scale(this.transform.scale.x, this.transform.scale.y);
         let path = this.path;
         path.rect(
             this.transform.position.x, this.transform.position.y,
@@ -1520,9 +1519,6 @@ class BoxCanvasObject2D extends CanvasObject2DBase{
 
         this.context.fillStyle = this.color.color;
         this.context.fill(path);
-        // this.context.fillRect(
-        //     this.transform.position.x, this.transform.position.y,
-        //     this.transform.scale.x, this.transform.scale.y);
 
     }
 }
