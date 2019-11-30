@@ -1556,10 +1556,6 @@ const LinkAction = (tag)=>{
     });
 };
 
-let bindObject = new BindValue();
-let testPtag = new PObject();
-
-
 const ContextMenu = {
     isVisible: false,
     contextMenu: new ULObject(),
