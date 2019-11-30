@@ -1,0 +1,209 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre, a,
+abbr, acronym, address, big, cite, code, del,
+dfn, em, img, ins, kbd, q, s, samp, small, strike,
+strong, sub, sup, tt, var, b, u, i, center,
+dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, figure, figcaption,
+footer, header, hgroup, menu, nav, output, ruby,
+section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+a,span,p,h1,h2,h3,h4,h5,h6,blockquote,
+small{
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Hiragino Kaku Gothic Pro", "Meiryo", Helvetica, Arial, Verdana, sans-serif;
+}
+
+html {
+  min-height: 100%;
+  position: relative;
+}
+
+body {
+  margin-bottom: 5em;
+  background:#eee;
+}
+
+a {
+  text-decoration: none;
+}
+
+input, button, textarea, select, option{
+  outline: none;
+  border: none;
+  resize: none;
+}
+
+.link,input[type="button"]{
+  cursor: pointer;
+}
+
+.fixed-window{
+  position: fixed;
+  z-index: 9;
+  min-width: 100vw;
+  width: 100vw;
+}
+
+.dropdown{
+  position: fixed;
+  display: block;
+  width: 100%;
+}
+
+.dropdown ~ *{
+  padding-top: 1.5em;
+}
+
+.dropdown:hover > li:nth-of-type(n+2){
+  visibility: visible;
+  width: 100%;
+  height: fit-content;
+}
+
+.dropdown > li > * {
+  width: 100%;
+  padding: 5px 10px;
+}
+
+.dropdown > li,
+.dropdown > li > *{
+  background: #666;
+}
+
+.dropdown > li:hover,
+.dropdown > li > *:hover{
+  background: #4a4a4a;
+}
+
+.dropdown > li:nth-of-type(n+2){
+  visibility: hidden;
+  height: 0;
+}
+
+.progress,.progress > div{
+  min-height: 1em;
+}
+
+.progress{
+  border: #5a5a5a 2px solid;
+  flex-grow: 1;
+  position: relative;
+}
+
+.progress > div{
+  background: orange;
+  width: 100%;
+  position: absolute;
+  transform-origin: 0 0;
+  left: 0px;
+}
+
+#context-menu{
+  position: fixed;
+  min-width: 250px;
+  z-index: 10;
+  color: #fff;
+  box-shadow: 0px 3px 1px -1px rgba(0,0,0,0.6);
+}
+
+#context-menu > ul > li:first-child,
+#context-menu > ul >:first-child > input[type='button']{
+  border-radius: 5px 5px 0px 0px;
+}
+
+#context-menu > ul > li:last-child,
+#context-menu > ul >:last-child >  input[type='button']{
+  border-radius:  0px 0px 5px 5px;
+}
+
+#context-menu,
+#context-menu > ul,
+#context-menu > ul > li:only-child,
+#context-menu > ul > li:only-child >  input[type='button']{
+  border-radius: 5px;
+}
+
+#context-menu input[type='button']{
+  background: inherit;
+  display: block;
+  text-align: start;
+  width: 100%;
+  padding: 10px 5px;
+}
+
+#context-menu > ul > li{
+  list-style: none;
+}
+
+#context-menu > ul > li:hover{
+  background: #666;
+  text-shadow: #fefefe 0 1px 1px 0;
+}
+
+#context-menu,.message-box{
+  background: rgba(0,0,0,0.6);
+}
+
+.message-box{
+  left: 0;
+  top: 0px;
+  width: 100%;
+  padding: 10px 0;
+  text-align: center;
+  max-height: 500px;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.message-box,
+.message-box > * {
+  user-select: none;
+  transition: all 300ms 0s ease;
+}
+
+.message-box > *{
+  padding: 0;
+  border: none;
+}
+
+.height-hide{
+  max-height: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.message-box > div > input[type="button"]{
+  background: rgba(0,0,0,0);
+  border-radius: 1.5rem;
+  border: 1px solid #8e8e8e;
+  width: 10em;
+  padding: 0 20px;
+  margin: 0 5px;
+}
+
+.message-box > div > input[type="button"]:hover{
+  background: rgba(131, 131, 131, 0.932);
+}
+
+#footer{
+  bottom: 0;
+  height: 5em;
+  position: absolute;
+  background: #2A1B0A;
+  width: 100%;
+  text-align: center;
+}
+
+#footer *{
+  color: #fff;
+}
+
+
+.hideElement{
+  display: none;
+}
