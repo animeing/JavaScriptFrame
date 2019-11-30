@@ -392,7 +392,9 @@ class SortLink extends List{
 }
 
 class CookieMap{
-    constructor(){
+    #savePath = '';
+    constructor(savePath = ''){
+        this.#savePath = savePath;
     }
 
     *[Symbol.iterator](){
@@ -414,6 +416,10 @@ class CookieMap{
         return Base64.decode(((document.cookie + '; ').match('['+key+'= ]=([A-z0-9=]*)')||[])[1]);
     }
 
+    get path(){
+        return this.#path;
+    }
+
     /**
      * 
      * @override
@@ -421,7 +427,7 @@ class CookieMap{
      * @param {*} value 
      */
     set(key, value){
-        document.cookie = key+'='+Base64.encode(value)+';path=/soundowl';
+        document.cookie = key+'='+Base64.encode(value)+';'+this.path;
     }
 
     /**
