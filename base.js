@@ -1925,4 +1925,5 @@ fixed.classList.add('fixed-window');
 
 window.addEventListener('load',()=>{
     document.body.appendChild(fixed);
+    ContextMenu.removeEventSet();
 });
