@@ -761,6 +761,12 @@ class DivObject extends WebObject{
     }
 }
 
+class StyleObject extends WebObject{
+    get tagName(){
+        return 'style';
+    }
+}
+
 class FlickObject extends DivObject{
     constructor(){
         super();
@@ -1911,4 +1917,3 @@ class AudioPlayer{
         this.currentPlayState = AudioPlayStateEnum.STOP;
     }
 }
-
