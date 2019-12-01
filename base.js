@@ -777,6 +777,18 @@ class StyleObject extends WebObject{
     }
 }
 
+class LinkObject extends WebObject{
+    get tagName(){
+        return 'link';
+    }
+}
+
+class MetaObject extends WebObject{
+    get tagName(){
+        return 'meta';
+    }
+}
+
 class FlickObject extends DivObject{
     constructor(){
         super();
