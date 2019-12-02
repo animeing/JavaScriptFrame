@@ -1932,7 +1932,7 @@ class AudioPlayer{
     }
 }
 
-fixed = document.createElement('div');
+var fixed = document.createElement('div');
 fixed.classList.add('fixed-window');
 
 window.addEventListener('load',()=>{
