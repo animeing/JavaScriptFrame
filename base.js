@@ -421,7 +421,7 @@ class CookieMap{
     }
 
     get path(){
-        return this.#path;
+        return this.#savePath;
     }
 
     /**
