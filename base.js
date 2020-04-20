@@ -34,13 +34,13 @@ const htmlElement=()=>{
 }
 
 class MousePosition{
-    #element = null;
+    _element = null;
     /**
      * 
      * @param {HTMLElement} element 
      */
     constructor(element){
-        this.#element = element;
+        this._element = element;
     }
 
     /**
@@ -50,8 +50,8 @@ class MousePosition{
     localMousePosition(e){
         let position = new Point2D();
         position = this.worldMousePosition(e);
-        position.x = e.clientX - this.#element.offsetLeft;
-        position.y = e.clientY - this.#element.offsetTop;
+        position.x = e.clientX - this._element.offsetLeft;
+        position.y = e.clientY - this._element.offsetTop;
         return position;
     }
     /**
@@ -66,22 +66,22 @@ class MousePosition{
     }
     toLocalMousePosition(worldPosition){
         let localPosition = worldPosition;
-        localPosition.x -= this.#element.offsetLeft;
-        localPosition.y -= this.#element.offsetTop;
+        localPosition.x -= this._element.offsetLeft;
+        localPosition.y -= this._element.offsetTop;
         return localPosition;
     }
     toWorldMousePosition(localPosition){
         let worldPosition = localPosition;
-        worldPosition.x += this.#element.offsetLeft;
-        worldPosition.y += this.#element.offsetTop;
+        worldPosition.x += this._element.offsetLeft;
+        worldPosition.y += this._element.offsetTop;
         return worldPosition;
     }
 }
 
 class MouseEventPositionDistance{
-    #startPosition = new Point2D();
-    #distance = new Point2D();
-    #endEvent = ()=>{};
+    _startPosition = new Point2D();
+    _distance = new Point2D();
+    _endEvent = ()=>{};
     /**
      * 
      * @param {HTMLElement} object 
@@ -91,31 +91,31 @@ class MouseEventPositionDistance{
         this.mousePosition = new MousePosition(object);
     }
     setEndEvent(endEvent){
-        this.#endEvent = endEvent;
+        this._endEvent = endEvent;
     }
     setDistanceEvent(startEvent, endEvent){
         const self = this;
         this.isStarted = false;
         this.object.addEventListener(startEvent, (e)=>{
             self.isStarted = true;
-            self.#startPosition = self.mousePosition.worldMousePosition(e);
+            self._startPosition = self.mousePosition.worldMousePosition(e);
         });
         this.object.addEventListener(endEvent, (e)=>{
             if(!self.isStarted) return;
             const endPosition = self.mousePosition.worldMousePosition(e);
-            self.#distance.x = endPosition.x - self.#startPosition.x ;
-            self.#distance.y = endPosition.y - self.#startPosition.y;
+            self._distance.x = endPosition.x - self._startPosition.x ;
+            self._distance.y = endPosition.y - self._startPosition.y;
             self.isStarted = false;
-            self.#endEvent(self.#distance);
+            self._endEvent(self._distance);
         });
     }
     setResetEvent(...resetEvents){
         const self = this;
         const reset = ()=>{
-            self.#distance.x = 0;
-            self.#distance.y = 0;
-            self.#startPosition.x = 0;
-            self.#startPosition.y = 0;
+            self._distance.x = 0;
+            self._distance.y = 0;
+            self._startPosition.x = 0;
+            self._startPosition.y = 0;
             self.isStarted = false;
         };
         for (const resetEvent of resetEvents) {
@@ -126,7 +126,7 @@ class MouseEventPositionDistance{
      * @returns {Point2D}
      */
     get distance(){
-        return this.#distance;
+        return this._distance;
     }
 }
 
@@ -396,9 +396,9 @@ class SortLink extends List{
 }
 
 class CookieMap{
-    #savePath = '';
+    _savePath = '';
     constructor(savePath = ''){
-        this.#savePath = savePath;
+        this._savePath = savePath;
     }
 
     *[Symbol.iterator](){
@@ -421,7 +421,7 @@ class CookieMap{
     }
 
     get path(){
-        return this.#savePath;
+        return this._savePath;
     }
 
     /**
@@ -445,18 +445,18 @@ class CookieMap{
 }
 
 class ValueChangeEvent{
-    #value = undefined;
+    _value = undefined;
     eventListenerList = new List();
     constructor(key, value){
         this.key = key;
         this.value = value;
     } 
     get value(){
-        return this.#value;
+        return this._value;
     }
 
     set value(value){
-        this.#value = value;
+        this._value = value;
         for (const func of this.eventListenerList) {
             if(typeof(func) != 'function') return;
             func();
@@ -690,28 +690,28 @@ class RequestServerBase {
 
 
 class BindValue{
-    #currentValue = "";
-    #bindObjects = new List();
+    _currentValue = "";
+    _bindObjects = new List();
 
     set value(newValue){
-        if(this.#currentValue !== newValue){
-            for(let val of this.#bindObjects){
+        if(this._currentValue !== newValue){
+            for(let val of this._bindObjects){
                 val+='test';
                 console.log(val);
             }
-            this.#currentValue = newValue;
+            this._currentValue = newValue;
         }
     }
     get value(){
-        return this.#currentValue;
+        return this._currentValue;
     }
 
     set bindObject(obj){
-        this.#bindObjects.add(obj);
+        this._bindObjects.add(obj);
     }
 
     get bindObjects(){
-        return this.#bindObjects;
+        return this._bindObjects;
     }
 }
 
@@ -719,9 +719,9 @@ class BindValue{
  * @abstract
  */
 class WebObject{
-    #obj = undefined;
+    _obj = undefined;
     constructor(){
-        this.#obj = document.createElement(this.tagName);
+        this._obj = document.createElement(this.tagName);
     }
 
     /**
@@ -753,7 +753,7 @@ class WebObject{
      * @returns {HTMLElement}
      */
     get object(){
-        return this.#obj;
+        return this._obj;
     }
     
     set value(str){
@@ -799,9 +799,9 @@ class FlickObject extends DivObject{
 class ProgressComposite extends DivObject{
     changedValueFunction = new List();
     valueChangeFunctions = new List();
-    #max = 1;
-    #min = 0;
-    #value = 0;
+    _max = 1;
+    _min = 0;
+    _value = 0;
     constructor(){
         super();
         this.mousePosition = new MousePosition(this.object);
@@ -883,14 +883,14 @@ class ProgressComposite extends DivObject{
      * @param {number} value
      */
     get value(){
-        return this.#value;
+        return this._value;
     }
 
     /**
      * @param {number} value
      */
     set value(value){
-        this.#value = value;
+        this._value = value;
         this.update(value);
     }
 
@@ -899,7 +899,7 @@ class ProgressComposite extends DivObject{
      * @param {number} max
      */
     get max(){
-        return this.#max;
+        return this._max;
     }
 
     /**
@@ -907,17 +907,17 @@ class ProgressComposite extends DivObject{
      */
     set max(max){
         if(this.min > max) return;
-        this.#max = max;
+        this._max = max;
         this.update();
     }
 
     get min(){
-        return this.#min;
+        return this._min;
     }
 
     set min(min){
         if(min > this.max) return;
-        this.#min = min;
+        this._min = min;
         this.update()
     }
 
@@ -1100,21 +1100,21 @@ class ButtonObject extends InputObject{
 }
 
 class MessageWindow extends DivObject{
-    #messageElement = undefined;
+    _messageElement = undefined;
     constructor(){
         super();
         this.closeEvent = new List();
-        this.#messageElement = new PObject();
+        this._messageElement = new PObject();
         this.object.classList.add('message-box');
         this.createBlock();
     }
 
     set value(message){
-        this.#messageElement.value = message;
+        this._messageElement.value = message;
     }
 
     get value(){
-        return this.#messageElement.value;
+        return this._messageElement.value;
     }
 
     /**
@@ -1123,8 +1123,8 @@ class MessageWindow extends DivObject{
      */
     createBlock(message = ''){
         fixed.appendChild(this.object);
-        this.#messageElement.value = message;
-        this.object.appendChild(this.#messageElement.object);
+        this._messageElement.value = message;
+        this.object.appendChild(this._messageElement.object);
         return this;
     }
     /**
@@ -1152,10 +1152,10 @@ class MessageWindow extends DivObject{
 }
 
 class MessageButtonWindow extends MessageWindow {
-    #buttonNameList = undefined;
+    _buttonNameList = undefined;
     constructor(){
         super();
-        this.#buttonNameList = new List();
+        this._buttonNameList = new List();
         this.buttonFrame = new DivObject();
         this.createButtonBlock();
         this.object.appendChild(this.buttonFrame.object);
@@ -1166,7 +1166,7 @@ class MessageButtonWindow extends MessageWindow {
      */
     createButtonBlock(){
         this.changeButtonList();
-        this.#buttonNameList.changeEvent(()=>{this.changeButtonList();});
+        this._buttonNameList.changeEvent(()=>{this.changeButtonList();});
         return this.buttonFrame;
     }
 
@@ -1175,7 +1175,7 @@ class MessageButtonWindow extends MessageWindow {
      */
     changeButtonList(){
         this.buttonFrame.removeAll();
-        for (const buttonName of this.#buttonNameList) {
+        for (const buttonName of this._buttonNameList) {
             this.addButton(buttonName);
         }
     }
@@ -1197,7 +1197,7 @@ class MessageButtonWindow extends MessageWindow {
         let menuItem = new MenuItem(new ButtonObject());
         menuItem.value = value;
         menuItem.onClickEvent = onclick;
-        this.#buttonNameList.add(menuItem);
+        this._buttonNameList.add(menuItem);
     }
 }
 
@@ -1238,7 +1238,7 @@ class LIButtonObject extends LIObject{
 }
 
 class DropDownObject extends ULObject{
-    #dropdownNameObject = null;
+    _dropdownNameObject = null;
     constructor(){
         super();
         this.object.classList.add('dropdown');
@@ -1249,7 +1249,7 @@ class DropDownObject extends ULObject{
         if(this.dropdownObject != null){
             this.dropdownObject.destory();
         }
-        this.#dropdownNameObject = value;
+        this._dropdownNameObject = value;
         if(this.list.get(0) == undefined){
             this.object.appendChild(this.dropdownObject.object);
         } else {
@@ -1258,7 +1258,7 @@ class DropDownObject extends ULObject{
     }
 
     get dropdownObject(){
-        return this.#dropdownNameObject;
+        return this._dropdownNameObject;
     }
 
     set displayName(value){
@@ -1285,11 +1285,11 @@ class DropDownObject extends ULObject{
  * @abstract
  */
 class CanvasBase extends WebObject{
-    #canvasObjectList = new List();
-    #paramClass = null;
+    _canvasObjectList = new List();
+    _paramClass = null;
     constructor(){
         super();
-        this.#paramClass = {
+        this._paramClass = {
             mousePosition: new MousePosition(this.object)
             
         };
@@ -1319,7 +1319,7 @@ class CanvasBase extends WebObject{
         this.canvasObjectList.remove(canvasObject);
     }
     get canvasObjectList(){
-        return this.#canvasObjectList;
+        return this._canvasObjectList;
     }
     run(){
         let self = this;
@@ -1424,13 +1424,13 @@ class CanvasObjectColor{
 }
 
 class CanvasObjectBase{
-    #color = new CanvasObjectColor();
-    #_context = null;
+    _color = new CanvasObjectColor();
+    __context = null;
     /**
      * @returns {CanvasObjectColor}
      */
     get color(){
-        return this.#color;
+        return this._color;
     }
 
     /**
@@ -1438,14 +1438,14 @@ class CanvasObjectBase{
      * @returns {RenderingContext}
      */
     fcontext(context){
-        this.#_context = context;
+        this.__context = context;
         return this.context;
     }
     /**
      * @returns {RenderingContext}
      */
     get context(){
-        return this.#_context;
+        return this.__context;
     }
     renderObjectBase(){
         this.context.beginPath();
@@ -1471,20 +1471,20 @@ class CanvasObjectBase{
 }
 
 class CanvasObject3DBase extends CanvasObjectBase{
-    #path = undefined;
+    _path = undefined;
     constructor(){
         super();
         this.transform = new Transform();
     }
 
     get path(){
-        return this.#path;
+        return this._path;
     }
 }
 
 class CanvasObject2DBase extends CanvasObjectBase{
-    #path = new Path2D();
-    #isFill = true;
+    _path = new Path2D();
+    _isFill = true;
     constructor(){
         super();
         this.transform = new Transform2D();
@@ -1493,23 +1493,23 @@ class CanvasObject2DBase extends CanvasObjectBase{
      * @private
      */
     pathReset(){
-        this.#path = new Path2D();
+        this._path = new Path2D();
     }
     /**
      * @returns {Path2D}
      */
     get path(){
-        return this.#path;
+        return this._path;
     }
     /**
      * @return {boolean}
      */
     get fill(){
-        return this.#isFill;
+        return this._isFill;
     }
 
     set fill(value){
-        this.#isFill = value;
+        this._isFill = value;
     }
 
 }
